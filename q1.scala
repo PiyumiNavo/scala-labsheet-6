@@ -6,7 +6,7 @@
     )
 
     val inventory2 = List(
-    Product(1, "Apple", 10, 0.5),
+    Product(1, "Apple", 10, 0.6),
     Product(2, "Banana", 20, 0.3),
     Product(3, "Orange", 30, 0.2),
     )
@@ -47,7 +47,10 @@ def isEmpty(products: List[Product]):Unit = {
 def mergeInventories(inventory1: List[Product], inventory2: List[Product]): List[Product] = {
     val mergedInventory = inventory1.map { product1 =>
         inventory2.find(_.id == product1.id) match {
-            case Some(product2) => product1.copy(quantity = product1.quantity + product2.quantity)
+            case Some(product2) =>{
+                product1.copy(quantity = product1.quantity + product2.quantity)
+                product1.copy(price = product1.price max product2.price)
+            }
             case None => product1
         }
     }
